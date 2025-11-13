@@ -14,6 +14,7 @@
     "@tanstack/react-router-devtools": "^1.132.51",
     "arktype": "^2.1.22",
     "clsx": "^2.1.1",
+    "firebase": "^12.5.0",
     "lucide-react": "^0.542.0",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
