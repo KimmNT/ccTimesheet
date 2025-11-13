@@ -2,13 +2,15 @@
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
+
+const FIREBASE_API_KEY = import.meta.env.VITE_FIREBASE_API_KEY;
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-  apiKey: process.env.VITE_FIREBASE_API_KEY,
+  apiKey: FIREBASE_API_KEY,
   authDomain: "cctimesheet-b3d1b.firebaseapp.com",
   databaseURL: "https://cctimesheet-b3d1b-default-rtdb.firebaseio.com",
   projectId: "cctimesheet-b3d1b",

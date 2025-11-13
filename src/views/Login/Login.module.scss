@@ -1,0 +1,151 @@
+@use "../../style/colors.scss";
+@use "../../style/utils.scss";
+
+.PageContainer {
+  width: 90%;
+  height: 100vh;
+  background-color: var(--color-bg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+
+  .Content {
+    border-radius: 0.5rem;
+    box-shadow: 1px 1px 20px var(--color-primary);
+    border-radius: 0.5rem;
+    overflow: hidden;
+    width: 100%;
+
+    .FormContainer {
+      width: 100%;
+      display: flex;
+      align-content: flex-start;
+      justify-content: space-between;
+      gap: 0.5rem;
+
+      img {
+        width: 40%;
+        max-width: 25rem;
+        height: auto;
+        object-fit: cover;
+
+        @include utils.viewport(2) {
+          display: none;
+        }
+      }
+
+      .Form {
+        padding: 2rem;
+        width: 60%;
+        max-width: 55rem;
+        display: flex;
+        // align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        margin: 0 auto;
+
+        @include utils.viewport(2) {
+          width: 100%;
+        }
+
+        .TitleContainerMobile {
+          display: none;
+
+          @include utils.viewport(2) {
+            display: block;
+            margin-bottom: 3rem;
+
+            .Subtitle {
+              font-size: 1.5rem;
+              color: var(--color-text-secondary);
+              text-align: right;
+            }
+          }
+        }
+
+        .Heading {
+          font-size: 3rem;
+          font-weight: 600;
+          margin-bottom: 1.5rem;
+          color: var(--color-text);
+          text-align: left;
+        }
+
+        .InputContainer {
+          display: flex;
+          flex-direction: column;
+          gap: 2rem;
+          width: 100%;
+
+          .FormGroup {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+
+            .Label {
+              font-size: 1.25rem;
+              color: var(--color-text);
+            }
+            .InputWrapper {
+              display: flex;
+              align-items: center;
+              gap: 0.5rem;
+              justify-content: space-between;
+              border-bottom: 0.125rem solid var(--color-dark);
+
+              input {
+                width: 100%;
+                padding: 0.75rem 0.5rem;
+                border: none;
+                outline: none;
+                font-size: 1.25rem;
+              }
+
+              .PasswordToggleButton {
+                cursor: pointer;
+              }
+            }
+          }
+        }
+
+        .ErrorMessage {
+          margin-top: 1rem;
+          color: var(--color-error);
+          font-size: 1rem;
+        }
+
+        .SubmitButton {
+          margin-top: 2rem;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          padding: 0.75rem 1.5rem;
+          background-color: var(--color-primary);
+          color: white;
+          border: none;
+          border-radius: 0.25rem;
+          cursor: pointer;
+          transition: background-color 0.3s ease;
+          gap: 0.5rem;
+          width: fit-content;
+
+          &:hover {
+            background-color: #000;
+            color: white;
+          }
+
+          .Title {
+            font-size: 1.25rem;
+            font-weight: 600;
+          }
+
+          .Icon {
+            color: white;
+          }
+        }
+      }
+    }
+  }
+}
