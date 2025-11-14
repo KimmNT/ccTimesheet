@@ -10,19 +10,33 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as UserIndexRouteImport } from './routes/user/index'
 import { Route as LoginIndexRouteImport } from './routes/login/index'
+import { Route as AdminIndexRouteImport } from './routes/admin/index'
 import { Route as AboutUsIndexRouteImport } from './routes/about-us/index'
+import { Route as UserMyAttendanceIndexRouteImport } from './routes/user/my-attendance/index'
+import { Route as UserClockInOutIndexRouteImport } from './routes/user/clock-in-out/index'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any).lazy(() => import('./routes/index.lazy').then((d) => d.Route))
+const UserIndexRoute = UserIndexRouteImport.update({
+  id: '/user/',
+  path: '/user/',
+  getParentRoute: () => rootRouteImport,
+} as any).lazy(() => import('./routes/user/index.lazy').then((d) => d.Route))
 const LoginIndexRoute = LoginIndexRouteImport.update({
   id: '/login/',
   path: '/login/',
   getParentRoute: () => rootRouteImport,
 } as any).lazy(() => import('./routes/login/index.lazy').then((d) => d.Route))
+const AdminIndexRoute = AdminIndexRouteImport.update({
+  id: '/admin/',
+  path: '/admin/',
+  getParentRoute: () => rootRouteImport,
+} as any).lazy(() => import('./routes/admin/index.lazy').then((d) => d.Route))
 const AboutUsIndexRoute = AboutUsIndexRouteImport.update({
   id: '/about-us/',
   path: '/about-us/',
@@ -30,35 +44,87 @@ const AboutUsIndexRoute = AboutUsIndexRouteImport.update({
 } as any).lazy(() =>
   import('./routes/about-us/index.lazy').then((d) => d.Route),
 )
+const UserMyAttendanceIndexRoute = UserMyAttendanceIndexRouteImport.update({
+  id: '/user/my-attendance/',
+  path: '/user/my-attendance/',
+  getParentRoute: () => rootRouteImport,
+} as any).lazy(() =>
+  import('./routes/user/my-attendance/index.lazy').then((d) => d.Route),
+)
+const UserClockInOutIndexRoute = UserClockInOutIndexRouteImport.update({
+  id: '/user/clock-in-out/',
+  path: '/user/clock-in-out/',
+  getParentRoute: () => rootRouteImport,
+} as any).lazy(() =>
+  import('./routes/user/clock-in-out/index.lazy').then((d) => d.Route),
+)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about-us': typeof AboutUsIndexRoute
+  '/admin': typeof AdminIndexRoute
   '/login': typeof LoginIndexRoute
+  '/user': typeof UserIndexRoute
+  '/user/clock-in-out': typeof UserClockInOutIndexRoute
+  '/user/my-attendance': typeof UserMyAttendanceIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about-us': typeof AboutUsIndexRoute
+  '/admin': typeof AdminIndexRoute
   '/login': typeof LoginIndexRoute
+  '/user': typeof UserIndexRoute
+  '/user/clock-in-out': typeof UserClockInOutIndexRoute
+  '/user/my-attendance': typeof UserMyAttendanceIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/about-us/': typeof AboutUsIndexRoute
+  '/admin/': typeof AdminIndexRoute
   '/login/': typeof LoginIndexRoute
+  '/user/': typeof UserIndexRoute
+  '/user/clock-in-out/': typeof UserClockInOutIndexRoute
+  '/user/my-attendance/': typeof UserMyAttendanceIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/about-us' | '/login'
+  fullPaths:
+    | '/'
+    | '/about-us'
+    | '/admin'
+    | '/login'
+    | '/user'
+    | '/user/clock-in-out'
+    | '/user/my-attendance'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about-us' | '/login'
-  id: '__root__' | '/' | '/about-us/' | '/login/'
+  to:
+    | '/'
+    | '/about-us'
+    | '/admin'
+    | '/login'
+    | '/user'
+    | '/user/clock-in-out'
+    | '/user/my-attendance'
+  id:
+    | '__root__'
+    | '/'
+    | '/about-us/'
+    | '/admin/'
+    | '/login/'
+    | '/user/'
+    | '/user/clock-in-out/'
+    | '/user/my-attendance/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutUsIndexRoute: typeof AboutUsIndexRoute
+  AdminIndexRoute: typeof AdminIndexRoute
   LoginIndexRoute: typeof LoginIndexRoute
+  UserIndexRoute: typeof UserIndexRoute
+  UserClockInOutIndexRoute: typeof UserClockInOutIndexRoute
+  UserMyAttendanceIndexRoute: typeof UserMyAttendanceIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -70,11 +136,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/user/': {
+      id: '/user/'
+      path: '/user'
+      fullPath: '/user'
+      preLoaderRoute: typeof UserIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/login/': {
       id: '/login/'
       path: '/login'
       fullPath: '/login'
       preLoaderRoute: typeof LoginIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/': {
+      id: '/admin/'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AdminIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/about-us/': {
@@ -84,13 +164,31 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AboutUsIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/user/my-attendance/': {
+      id: '/user/my-attendance/'
+      path: '/user/my-attendance'
+      fullPath: '/user/my-attendance'
+      preLoaderRoute: typeof UserMyAttendanceIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/user/clock-in-out/': {
+      id: '/user/clock-in-out/'
+      path: '/user/clock-in-out'
+      fullPath: '/user/clock-in-out'
+      preLoaderRoute: typeof UserClockInOutIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutUsIndexRoute: AboutUsIndexRoute,
+  AdminIndexRoute: AdminIndexRoute,
   LoginIndexRoute: LoginIndexRoute,
+  UserIndexRoute: UserIndexRoute,
+  UserClockInOutIndexRoute: UserClockInOutIndexRoute,
+  UserMyAttendanceIndexRoute: UserMyAttendanceIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

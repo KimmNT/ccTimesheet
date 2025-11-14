@@ -5,6 +5,9 @@ import attendanceBackground from "@/assets/images/attendance-image.jpeg";
 import { ArrowRight, Eye, EyeOff } from "lucide-react";
 import { collection, getDocs, query, where } from "firebase/firestore";
 import { db } from "../../../firebase";
+import { saveSession, isAuthenticated } from "@/utils/auth/sessionManager";
+import { useNavigate } from "@tanstack/react-router";
+import { useUserStore } from "@/store/useUserStore";
 
 export default function Login() {
   const [userName, setUserName] = useState("");
@@ -14,27 +17,41 @@ export default function Login() {
   const [isErrorMsg, setIsErrorMsg] = useState(
     "Invalid username or password. Please try again."
   );
+  const [isLoading, setIsLoading] = useState(false);
 
   const inputRef = useRef<HTMLInputElement>(null);
+  const navigate = useNavigate();
+  const setUser = useUserStore((state) => state.setUser);
 
   useEffect(() => {
+    // Redirect if already authenticated
+    if (isAuthenticated()) {
+      navigate({ to: "/" });
+      return;
+    }
+
     if (inputRef.current) {
       inputRef.current.focus();
     }
-  }, []);
+  }, [navigate]);
 
   const handleLogin = async () => {
-    if (!userName || !password) {
+    // Input validation
+    if (!userName.trim() || !password) {
       setIsErrorMsg("Please enter both username and password.");
       inputRef.current?.focus();
       setIsError(true);
       return;
     }
+
+    setIsLoading(true);
+    setIsError(false);
+
     try {
       const userRef = collection(db, "users");
       const roleQuery = query(
         userRef,
-        where("userEmail", "==", userName),
+        where("userEmail", "==", userName.trim()),
         where("userPassword", "==", password)
       );
 
@@ -45,35 +62,45 @@ export default function Login() {
         console.log("No user found with these credentials");
         setIsErrorMsg("Invalid username or password. Please try again.");
         setIsError(true);
+        setIsLoading(false);
         return;
       }
 
-      // Handle querySnapshot data here
       querySnapshot.forEach((doc) => {
         const userData = doc.data();
         console.log("User found:", userData);
-        setIsError(false);
 
+        // Save to JWT session
+        saveSession({
+          userId: doc.id,
+          userEmail: userData.userEmail,
+          role: userData.role,
+        });
+
+        // Save complete user data to global store
+        setUser({
+          userId: doc.id,
+          userEmail: userData.userEmail,
+          role: userData.role,
+          userName: userData.userName,
+          // Add any other fields from your Firestore user document
+        });
+
+        // Navigate based on role
         if (userData.role === "admin") {
           console.log("Admin login successful");
-          // TODO: Navigate to admin dashboard or set admin state
+          navigate({ to: "/admin" });
         } else {
           console.log("User login successful");
-          // TODO: Navigate to user dashboard or set user state
+          navigate({ to: "/user/clock-in-out" });
         }
-
-        // Optional: Save credentials if needed
-        // if (isSaved) {
-        //   const saveInfo = {
-        //     userName: userName,
-        //     password: password,
-        //   };
-        //   localStorage.setItem("cfxo6u7xp5", JSON.stringify(saveInfo));
-        // }
       });
     } catch (error) {
       console.error("Error during login: ", error);
+      setIsErrorMsg("Login failed. Please try again.");
       setIsError(true);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -116,6 +143,11 @@ export default function Login() {
                     required
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter") {
+                        handleLogin();
+                      }
+                    }}
                   />
                   <button
                     type="button"
@@ -132,9 +164,12 @@ export default function Login() {
               type="button"
               className={style.SubmitButton}
               onClick={handleLogin}
+              disabled={isLoading}
             >
-              <p className={style.Title}>Sign In</p>
-              <ArrowRight className={style.Icon} />
+              <p className={style.Title}>
+                {isLoading ? "Signing In..." : "Sign In"}
+              </p>
+              {!isLoading && <ArrowRight className={style.Icon} />}
             </button>
           </div>
         </div>
