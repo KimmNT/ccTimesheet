@@ -13,7 +13,6 @@ import {
   Clock,
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
-import useIsMobile from "@/utils/hooks/useIsMobile";
 import clsx from "clsx";
 
 // Map titles to icons
@@ -30,7 +29,6 @@ export default function Navbar() {
   const navigate = useNavigate();
   const clearUser = useUserStore((state) => state.clearUser);
   const user = useUserStore((state) => state.user);
-  const isMobile = useIsMobile();
   const currentPath = window.location.pathname;
 
   const navbar = role === "admin" ? adminNavbar : userNavbar;
@@ -56,11 +54,8 @@ export default function Navbar() {
                   currentPath === nav.path && style.ActiveNavLink
                 )}
               >
-                {isMobile && IconComponent ? (
-                  <IconComponent className={style.NavIcon} />
-                ) : (
-                  nav.title
-                )}
+                <IconComponent className={style.NavIcon} />
+                <span className={style.NavText}>{nav.title}</span>
               </Link>
               <div className={style.LineBreaker}></div>
             </>

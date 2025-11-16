@@ -106,13 +106,13 @@ export default function Login() {
 
   return (
     <main className={style.PageContainer}>
+      <div className={style.TitleContainerMobile}>
+        <p className={style.Subtitle}>ccTimesheet</p>
+      </div>
       <div className={style.Content}>
         <div className={style.FormContainer}>
           <img src={attendanceBackground} alt="" />
           <div className={style.Form}>
-            <div className={style.TitleContainerMobile}>
-              <p className={style.Subtitle}>ccTimesheet</p>
-            </div>
             <h1 className={style.Heading}>Sign In</h1>
             <div className={style.InputContainer}>
               <div className={style.FormGroup}>
