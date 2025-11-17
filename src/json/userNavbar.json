@@ -1,0 +1,10 @@
+[
+  {
+    "title": "Clock In/Out",
+    "path": "/user/clock-in-out"
+  },
+  {
+    "title": "My Attendance",
+    "path": "/user/my-attendance"
+  }
+]

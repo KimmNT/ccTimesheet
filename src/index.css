@@ -1,11 +1,11 @@
 @font-face {
-  font-family: "Montserrat";
-  src: url("./assets/fonts/Montserrat-VariableFont_wght.ttf");
+  font-family: "StackSansText";
+  src: url("./assets/fonts/StackSansText-VariableFont_wght.ttf");
   src:
-    url("./assets/fonts/Montserrat-VariableFont_wght.ttf?#iefix")
+    url("./assets/fonts/StackSansText-VariableFont_wght.ttf?#iefix")
       format("embedded-opentype"),
-    url("./assets/fonts/Montserrat-VariableFont_wght.ttf") format("woff"),
-    url("./assets/fonts/Montserrat-VariableFont_wght.ttf") format("truetype"),
+    url("./assets/fonts/StackSansText-VariableFont_wght.ttf") format("woff"),
+    url("./assets/fonts/StackSansText-VariableFont_wght.ttf") format("truetype"),
     url("FileName.svg#Montserrat") format("svg");
   font-style: normal;
   font-weight: normal;
@@ -28,16 +28,15 @@
   padding: 0;
   margin: 0;
   box-sizing: border-box;
-  font-family: Fredoka;
+  font-family: StackSansText;
 }
 
 html {
-  font-size: 62.5%;
   scroll-behavior: smooth;
 }
 
 body {
-  background-color: white;
+  background-color: #f8faf9;
   color: black;
 }
 
@@ -54,5 +53,5 @@ button {
 input {
   outline: none;
   background-color: transparent;
-  font-family: Montserrat;
+  font-family: StackSansText;
 }

@@ -1,0 +1,14 @@
+[
+  {
+    "title": "Staff",
+    "path": "/admin/staff"
+  },
+  {
+    "title": "Attendance",
+    "path": "/admin/attendance"
+  },
+  {
+    "title": "Reports",
+    "path": "/admin/reports"
+  }
+]

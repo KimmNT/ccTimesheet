@@ -1,0 +1,26 @@
+.loading-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  .circle-loader {
+    width: var(--size);
+    height: var(--size);
+    border-radius: 50%;
+    border: var(--thickness) solid rgba(0, 0, 0, 0.08);
+    border-top-color: var(--color);
+    animation: spinner 0.9s linear infinite;
+    box-sizing: border-box;
+  }
+}
+
+@keyframes spinner {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .circle-loader {
+    animation: none;
+  }
+}
