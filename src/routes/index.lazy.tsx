@@ -1,6 +1,6 @@
-import Index from "@/views/Index/Index";
+import Login from "@/views/Login/Login";
 import { createLazyFileRoute } from "@tanstack/react-router";
 
 export const Route = createLazyFileRoute("/")({
-  component: Index,
+  component: Login,
 });

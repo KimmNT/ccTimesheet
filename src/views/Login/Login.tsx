@@ -68,7 +68,6 @@ export default function Login() {
 
       querySnapshot.forEach((doc) => {
         const userData = doc.data();
-        console.log("User found:", userData);
 
         // Save to JWT session
         saveSession({

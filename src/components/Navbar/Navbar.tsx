@@ -4,14 +4,7 @@ import { Link, useNavigate } from "@tanstack/react-router";
 import { clearSession, getUserRole } from "@/utils/auth/sessionManager";
 import style from "./Navbar.module.scss";
 import { useUserStore } from "@/store/useUserStore";
-import {
-  LogOut,
-  User,
-  Users,
-  ClipboardList,
-  FileText,
-  Clock,
-} from "lucide-react";
+import { LogOut, Users, ClipboardList, FileText, Clock } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import clsx from "clsx";
 
@@ -63,7 +56,6 @@ export default function Navbar() {
         })}
         <div className={style.UserSection}>
           <div className={style.UserInfo}>
-            <User className={style.UserIcon} />
             <p className={style.UserName}>{user?.userName}</p>
           </div>
           <button

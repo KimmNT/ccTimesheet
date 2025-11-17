@@ -1,14 +1,16 @@
 import { memo, useState } from "react";
 import style from "./BreakTime.module.scss";
 import clsx from "clsx";
+import { doc, updateDoc } from "firebase/firestore";
+import { db } from "@/../firebase";
 
 interface BreakTimeProps {
   isOpen?: boolean;
   onClose?: () => void;
   isSubmited?: (submitted: boolean) => void;
-  breakTime?: (option: number) => void;
   clockOutTime?: number;
   clockInTime?: number;
+  attendanceId?: string;
 }
 
 const breakTimeList = [
@@ -28,11 +30,11 @@ const breakTimeList = [
 ];
 
 export default memo(function BreakTime({
-  breakTime,
   onClose,
   isSubmited,
   clockInTime,
   clockOutTime,
+  attendanceId,
 }: BreakTimeProps) {
   const [breakTimeValue, setBreakTimeValue] = useState("");
   const [error, setError] = useState("");
@@ -45,12 +47,22 @@ export default memo(function BreakTime({
     return option.value < breakDuration;
   });
 
-  const handleSelectedBreakTime = () => {
+  const handleSelectedBreakTime = async () => {
     if (breakTimeValue === "") {
       setError("Please select or enter your break time.");
       return;
     }
-    breakTime?.(parseInt(breakTimeValue));
+    const totalMilliseconds = (clockOutTime ?? 0) - (clockInTime ?? 0);
+    const totalMinutes =
+      totalMilliseconds / (1000 * 60) - (parseInt(breakTimeValue) || 0);
+    const totalHoursInMilliseconds = totalMinutes * 60 * 1000;
+
+    const wrokingTimeRef = doc(db, "attendances", attendanceId || "");
+    await updateDoc(wrokingTimeRef, {
+      clockOutTime,
+      totalHours: totalHoursInMilliseconds,
+      breakTime: breakTimeValue ? parseInt(breakTimeValue) : 0,
+    });
     isSubmited?.(true);
     void onClose?.();
   };

@@ -1,0 +1,216 @@
+@use "@/style/colors.scss";
+@use "@/style/utils.scss";
+
+.PageContainer {
+  width: 90%;
+  margin: 0 auto;
+  height: 100vh;
+
+  .Content {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    width: 100%;
+    margin-top: 5rem;
+    gap: 1rem;
+
+    @include utils.viewport(3) {
+      padding-bottom: 8rem;
+    }
+
+    @include utils.viewport(2) {
+      flex-direction: column;
+      align-items: center;
+      margin-top: 2rem;
+    }
+    @include utils.viewport(3) {
+      margin-top: 1rem;
+    }
+
+    .Item {
+      width: 100%;
+      h2 {
+        font-size: 1.5rem;
+        font-weight: 600;
+        color: var(--color-text);
+      }
+
+      h3 {
+        font-size: 1.2rem;
+        font-weight: 500;
+        color: var(--color-text);
+        @include utils.viewport(3) {
+          text-align: center;
+        }
+      }
+
+      .ItemHeading {
+        margin-bottom: 1rem;
+      }
+
+      .CalendarContainer {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        width: 100%;
+        gap: 1rem;
+
+        .Calendar {
+          border-radius: 0.5rem;
+          padding: 1rem;
+          border: none;
+          box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+          width: 48%;
+
+          @include utils.viewport(3) {
+            width: 100%;
+          }
+
+          // Style selected date
+          :global(.react-calendar__tile--active) {
+            background-color: var(--color-primary) !important;
+            color: white !important;
+            border-radius: 2rem;
+            font-weight: 600;
+
+            &:hover {
+              background-color: #1976d2 !important;
+            }
+          }
+
+          // Style today's date
+          :global(.react-calendar__tile--now) {
+            background-color: #ffe082;
+            border-radius: 2rem;
+
+            &:hover {
+              background-color: #ffd54f;
+            }
+          }
+
+          // Ensure selected state overrides today state
+          :global(.react-calendar__tile--now.react-calendar__tile--active) {
+            background-color: #2196f3 !important;
+            color: white !important;
+          }
+
+          // Hover effect for tiles
+          :global(.react-calendar__tile:hover) {
+            background-color: #e3f2fd;
+            border-radius: 2rem;
+          }
+
+          // Style for dates with attendance (when hovered)
+          :global(.react-calendar__tile:enabled:hover) {
+            cursor: pointer;
+          }
+        }
+
+        .AttendanceDot {
+          width: 6px;
+          height: 6px;
+          background-color: var(--color-primary);
+          border-radius: 50%;
+          margin: 2px auto 0;
+        }
+
+        .AttendanceDetails {
+          padding: 1rem;
+          box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+          border-radius: 0.5rem;
+          background-color: var(--color-light);
+          width: 48%;
+
+          @include utils.viewport(3) {
+            width: 100%;
+          }
+        }
+
+        .NoData {
+          color: var(--color-text);
+          opacity: 0.6;
+          text-align: center;
+          padding: 1rem;
+          font-style: italic;
+          width: 50%;
+          @include utils.viewport(3) {
+            width: 100%;
+          }
+        }
+
+        .Error {
+          color: #dc3545;
+          padding: 1rem;
+          background-color: #f8d7da;
+          border-radius: 4px;
+          border: 1px solid #f5c6cb;
+        }
+      }
+
+      .SummaryContainer {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+
+        @include utils.viewport(3) {
+          flex-direction: column;
+          align-items: center;
+        }
+
+        .SummaryBox {
+          width: 48%;
+          background-color: var(--color-light);
+          border-radius: 0.5rem;
+          padding: 1rem;
+          box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+          display: flex;
+          flex-direction: column;
+          gap: 0.5rem;
+
+          @include utils.viewport(3) {
+            width: 100%;
+          }
+
+          .Heading {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--color-text);
+            margin-bottom: 0.5rem;
+
+            @include utils.viewport(3) {
+              font-size: 1rem;
+            }
+          }
+
+          .SummaryData {
+            display: flex;
+            gap: 0.5rem;
+
+            .Item {
+              width: 100%;
+              background-color: rgba($color: #cecece, $alpha: 0.2);
+              padding: 0.5rem;
+              border-radius: 0.25rem;
+
+              .ItemHeading {
+                font-size: 0.8rem;
+                font-weight: 500;
+                color: var(--color-text-secondary);
+                margin-bottom: 0.25rem;
+              }
+
+              .ItemValue {
+                font-size: 1.4rem;
+                font-weight: 600;
+                color: var(--color-text);
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
