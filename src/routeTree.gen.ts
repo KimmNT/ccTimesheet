@@ -9,6 +9,8 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as UserRouteImport } from './routes/user'
+import { Route as AdminRouteImport } from './routes/admin'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as UserIndexRouteImport } from './routes/user/index'
 import { Route as LoginIndexRouteImport } from './routes/login/index'
@@ -16,16 +18,29 @@ import { Route as AdminIndexRouteImport } from './routes/admin/index'
 import { Route as AboutUsIndexRouteImport } from './routes/about-us/index'
 import { Route as UserMyAttendanceIndexRouteImport } from './routes/user/my-attendance/index'
 import { Route as UserClockInOutIndexRouteImport } from './routes/user/clock-in-out/index'
+import { Route as AdminStaffsIndexRouteImport } from './routes/admin/staffs/index'
+import { Route as AdminReportsIndexRouteImport } from './routes/admin/reports/index'
+import { Route as AdminAttendanceIndexRouteImport } from './routes/admin/attendance/index'
 
+const UserRoute = UserRouteImport.update({
+  id: '/user',
+  path: '/user',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminRoute = AdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any).lazy(() => import('./routes/index.lazy').then((d) => d.Route))
 const UserIndexRoute = UserIndexRouteImport.update({
-  id: '/user/',
-  path: '/user/',
-  getParentRoute: () => rootRouteImport,
+  id: '/',
+  path: '/',
+  getParentRoute: () => UserRoute,
 } as any).lazy(() => import('./routes/user/index.lazy').then((d) => d.Route))
 const LoginIndexRoute = LoginIndexRouteImport.update({
   id: '/login/',
@@ -33,9 +48,9 @@ const LoginIndexRoute = LoginIndexRouteImport.update({
   getParentRoute: () => rootRouteImport,
 } as any).lazy(() => import('./routes/login/index.lazy').then((d) => d.Route))
 const AdminIndexRoute = AdminIndexRouteImport.update({
-  id: '/admin/',
-  path: '/admin/',
-  getParentRoute: () => rootRouteImport,
+  id: '/',
+  path: '/',
+  getParentRoute: () => AdminRoute,
 } as any).lazy(() => import('./routes/admin/index.lazy').then((d) => d.Route))
 const AboutUsIndexRoute = AboutUsIndexRouteImport.update({
   id: '/about-us/',
@@ -45,26 +60,52 @@ const AboutUsIndexRoute = AboutUsIndexRouteImport.update({
   import('./routes/about-us/index.lazy').then((d) => d.Route),
 )
 const UserMyAttendanceIndexRoute = UserMyAttendanceIndexRouteImport.update({
-  id: '/user/my-attendance/',
-  path: '/user/my-attendance/',
-  getParentRoute: () => rootRouteImport,
+  id: '/my-attendance/',
+  path: '/my-attendance/',
+  getParentRoute: () => UserRoute,
 } as any).lazy(() =>
   import('./routes/user/my-attendance/index.lazy').then((d) => d.Route),
 )
 const UserClockInOutIndexRoute = UserClockInOutIndexRouteImport.update({
-  id: '/user/clock-in-out/',
-  path: '/user/clock-in-out/',
-  getParentRoute: () => rootRouteImport,
+  id: '/clock-in-out/',
+  path: '/clock-in-out/',
+  getParentRoute: () => UserRoute,
 } as any).lazy(() =>
   import('./routes/user/clock-in-out/index.lazy').then((d) => d.Route),
+)
+const AdminStaffsIndexRoute = AdminStaffsIndexRouteImport.update({
+  id: '/staffs/',
+  path: '/staffs/',
+  getParentRoute: () => AdminRoute,
+} as any).lazy(() =>
+  import('./routes/admin/staffs/index.lazy').then((d) => d.Route),
+)
+const AdminReportsIndexRoute = AdminReportsIndexRouteImport.update({
+  id: '/reports/',
+  path: '/reports/',
+  getParentRoute: () => AdminRoute,
+} as any).lazy(() =>
+  import('./routes/admin/reports/index.lazy').then((d) => d.Route),
+)
+const AdminAttendanceIndexRoute = AdminAttendanceIndexRouteImport.update({
+  id: '/attendance/',
+  path: '/attendance/',
+  getParentRoute: () => AdminRoute,
+} as any).lazy(() =>
+  import('./routes/admin/attendance/index.lazy').then((d) => d.Route),
 )
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/admin': typeof AdminRouteWithChildren
+  '/user': typeof UserRouteWithChildren
   '/about-us': typeof AboutUsIndexRoute
-  '/admin': typeof AdminIndexRoute
+  '/admin/': typeof AdminIndexRoute
   '/login': typeof LoginIndexRoute
-  '/user': typeof UserIndexRoute
+  '/user/': typeof UserIndexRoute
+  '/admin/attendance': typeof AdminAttendanceIndexRoute
+  '/admin/reports': typeof AdminReportsIndexRoute
+  '/admin/staffs': typeof AdminStaffsIndexRoute
   '/user/clock-in-out': typeof UserClockInOutIndexRoute
   '/user/my-attendance': typeof UserMyAttendanceIndexRoute
 }
@@ -74,16 +115,24 @@ export interface FileRoutesByTo {
   '/admin': typeof AdminIndexRoute
   '/login': typeof LoginIndexRoute
   '/user': typeof UserIndexRoute
+  '/admin/attendance': typeof AdminAttendanceIndexRoute
+  '/admin/reports': typeof AdminReportsIndexRoute
+  '/admin/staffs': typeof AdminStaffsIndexRoute
   '/user/clock-in-out': typeof UserClockInOutIndexRoute
   '/user/my-attendance': typeof UserMyAttendanceIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/admin': typeof AdminRouteWithChildren
+  '/user': typeof UserRouteWithChildren
   '/about-us/': typeof AboutUsIndexRoute
   '/admin/': typeof AdminIndexRoute
   '/login/': typeof LoginIndexRoute
   '/user/': typeof UserIndexRoute
+  '/admin/attendance/': typeof AdminAttendanceIndexRoute
+  '/admin/reports/': typeof AdminReportsIndexRoute
+  '/admin/staffs/': typeof AdminStaffsIndexRoute
   '/user/clock-in-out/': typeof UserClockInOutIndexRoute
   '/user/my-attendance/': typeof UserMyAttendanceIndexRoute
 }
@@ -91,10 +140,15 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
-    | '/about-us'
     | '/admin'
-    | '/login'
     | '/user'
+    | '/about-us'
+    | '/admin/'
+    | '/login'
+    | '/user/'
+    | '/admin/attendance'
+    | '/admin/reports'
+    | '/admin/staffs'
     | '/user/clock-in-out'
     | '/user/my-attendance'
   fileRoutesByTo: FileRoutesByTo
@@ -104,31 +158,51 @@ export interface FileRouteTypes {
     | '/admin'
     | '/login'
     | '/user'
+    | '/admin/attendance'
+    | '/admin/reports'
+    | '/admin/staffs'
     | '/user/clock-in-out'
     | '/user/my-attendance'
   id:
     | '__root__'
     | '/'
+    | '/admin'
+    | '/user'
     | '/about-us/'
     | '/admin/'
     | '/login/'
     | '/user/'
+    | '/admin/attendance/'
+    | '/admin/reports/'
+    | '/admin/staffs/'
     | '/user/clock-in-out/'
     | '/user/my-attendance/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AdminRoute: typeof AdminRouteWithChildren
+  UserRoute: typeof UserRouteWithChildren
   AboutUsIndexRoute: typeof AboutUsIndexRoute
-  AdminIndexRoute: typeof AdminIndexRoute
   LoginIndexRoute: typeof LoginIndexRoute
-  UserIndexRoute: typeof UserIndexRoute
-  UserClockInOutIndexRoute: typeof UserClockInOutIndexRoute
-  UserMyAttendanceIndexRoute: typeof UserMyAttendanceIndexRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/user': {
+      id: '/user'
+      path: '/user'
+      fullPath: '/user'
+      preLoaderRoute: typeof UserRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin': {
+      id: '/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AdminRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -138,10 +212,10 @@ declare module '@tanstack/react-router' {
     }
     '/user/': {
       id: '/user/'
-      path: '/user'
-      fullPath: '/user'
+      path: '/'
+      fullPath: '/user/'
       preLoaderRoute: typeof UserIndexRouteImport
-      parentRoute: typeof rootRouteImport
+      parentRoute: typeof UserRoute
     }
     '/login/': {
       id: '/login/'
@@ -152,10 +226,10 @@ declare module '@tanstack/react-router' {
     }
     '/admin/': {
       id: '/admin/'
-      path: '/admin'
-      fullPath: '/admin'
+      path: '/'
+      fullPath: '/admin/'
       preLoaderRoute: typeof AdminIndexRouteImport
-      parentRoute: typeof rootRouteImport
+      parentRoute: typeof AdminRoute
     }
     '/about-us/': {
       id: '/about-us/'
@@ -166,29 +240,78 @@ declare module '@tanstack/react-router' {
     }
     '/user/my-attendance/': {
       id: '/user/my-attendance/'
-      path: '/user/my-attendance'
+      path: '/my-attendance'
       fullPath: '/user/my-attendance'
       preLoaderRoute: typeof UserMyAttendanceIndexRouteImport
-      parentRoute: typeof rootRouteImport
+      parentRoute: typeof UserRoute
     }
     '/user/clock-in-out/': {
       id: '/user/clock-in-out/'
-      path: '/user/clock-in-out'
+      path: '/clock-in-out'
       fullPath: '/user/clock-in-out'
       preLoaderRoute: typeof UserClockInOutIndexRouteImport
-      parentRoute: typeof rootRouteImport
+      parentRoute: typeof UserRoute
+    }
+    '/admin/staffs/': {
+      id: '/admin/staffs/'
+      path: '/staffs'
+      fullPath: '/admin/staffs'
+      preLoaderRoute: typeof AdminStaffsIndexRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/reports/': {
+      id: '/admin/reports/'
+      path: '/reports'
+      fullPath: '/admin/reports'
+      preLoaderRoute: typeof AdminReportsIndexRouteImport
+      parentRoute: typeof AdminRoute
+    }
+    '/admin/attendance/': {
+      id: '/admin/attendance/'
+      path: '/attendance'
+      fullPath: '/admin/attendance'
+      preLoaderRoute: typeof AdminAttendanceIndexRouteImport
+      parentRoute: typeof AdminRoute
     }
   }
 }
 
-const rootRouteChildren: RootRouteChildren = {
-  IndexRoute: IndexRoute,
-  AboutUsIndexRoute: AboutUsIndexRoute,
+interface AdminRouteChildren {
+  AdminIndexRoute: typeof AdminIndexRoute
+  AdminAttendanceIndexRoute: typeof AdminAttendanceIndexRoute
+  AdminReportsIndexRoute: typeof AdminReportsIndexRoute
+  AdminStaffsIndexRoute: typeof AdminStaffsIndexRoute
+}
+
+const AdminRouteChildren: AdminRouteChildren = {
   AdminIndexRoute: AdminIndexRoute,
-  LoginIndexRoute: LoginIndexRoute,
+  AdminAttendanceIndexRoute: AdminAttendanceIndexRoute,
+  AdminReportsIndexRoute: AdminReportsIndexRoute,
+  AdminStaffsIndexRoute: AdminStaffsIndexRoute,
+}
+
+const AdminRouteWithChildren = AdminRoute._addFileChildren(AdminRouteChildren)
+
+interface UserRouteChildren {
+  UserIndexRoute: typeof UserIndexRoute
+  UserClockInOutIndexRoute: typeof UserClockInOutIndexRoute
+  UserMyAttendanceIndexRoute: typeof UserMyAttendanceIndexRoute
+}
+
+const UserRouteChildren: UserRouteChildren = {
   UserIndexRoute: UserIndexRoute,
   UserClockInOutIndexRoute: UserClockInOutIndexRoute,
   UserMyAttendanceIndexRoute: UserMyAttendanceIndexRoute,
+}
+
+const UserRouteWithChildren = UserRoute._addFileChildren(UserRouteChildren)
+
+const rootRouteChildren: RootRouteChildren = {
+  IndexRoute: IndexRoute,
+  AdminRoute: AdminRouteWithChildren,
+  UserRoute: UserRouteWithChildren,
+  AboutUsIndexRoute: AboutUsIndexRoute,
+  LoginIndexRoute: LoginIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

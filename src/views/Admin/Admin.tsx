@@ -1,18 +1,27 @@
-import { useNavigate } from "@tanstack/react-router";
-import { clearSession } from "@/utils/auth/sessionManager";
+import { Link } from "@tanstack/react-router";
+import Navbar from "@/components/Navbar/Navbar";
+import style from "./Admin.module.scss";
+import adminNavData from "@/json/adminNavbar.json";
+import { useDocumentTitle } from "@/utils/hooks/useDocumentTitle";
 
 export default function Admin() {
-  const navigate = useNavigate();
-
-  const handleLogout = () => {
-    clearSession();
-    navigate({ to: "/login" });
-  };
-
+  useDocumentTitle("Admin");
   return (
-    <div>
-      <h1>Admin page is here</h1>
-      <button onClick={handleLogout}>Logout</button>
-    </div>
+    <>
+      <Navbar />
+      <main className={style.Container}>
+        <div className={style.Content}>
+          <h1 className={style.Heading}>Admin page is here</h1>
+          <div className={style.NavLinks}>
+            {adminNavData.map((item) => (
+              <Link to={item.path} key={item.title} className={style.NavLink}>
+                <div className={style.Heading}>Go to:</div>
+                <div className={style.Value}>{item.title}</div>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </main>
+    </>
   );
 }

@@ -85,10 +85,19 @@ export default function Login() {
           // Add any other fields from your Firestore user document
         });
 
+        if (userData.status === false) {
+          setIsErrorMsg(
+            "Your account is inactive. Please contact the administrator."
+          );
+          setIsError(true);
+          setIsLoading(false);
+          return;
+        }
+
         // Navigate based on role
         if (userData.role === "admin") {
           console.log("Admin login successful");
-          navigate({ to: "/admin" });
+          navigate({ to: "/admin/staffs" });
         } else {
           console.log("User login successful");
           navigate({ to: "/user/clock-in-out" });

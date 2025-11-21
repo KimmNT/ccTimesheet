@@ -22,7 +22,7 @@ export const createToken = (userData: {
     userEmail: userData.userEmail,
     role: userData.role,
     iat: Math.floor(Date.now() / 1000),
-    exp: Math.floor(Date.now() / 1000) + 60 * 60 * 24 * 7, // 7 days
+    exp: Math.floor(Date.now() / 1000) + 60 * 60 * 24 * 7, // Token valid for 7 days
   };
 
   // Base64 encode (Note: In production, use proper JWT signing on backend)
@@ -39,13 +39,13 @@ export const saveSession = (userData: {
   role: string;
 }): void => {
   const token = createToken(userData);
-  sessionStorage.setItem("authToken", token);
-  sessionStorage.setItem("userRole", userData.role);
-  sessionStorage.setItem("userId", userData.userId);
+  localStorage.setItem("authToken", token);
+  localStorage.setItem("userRole", userData.role);
+  localStorage.setItem("userId", userData.userId);
 };
 
 export const getSession = (): UserSession | null => {
-  const token = sessionStorage.getItem("authToken");
+  const token = localStorage.getItem("authToken");
 
   if (!token) return null;
 
@@ -70,10 +70,10 @@ export const getSession = (): UserSession | null => {
 };
 
 export const clearSession = (): void => {
-  sessionStorage.removeItem("authToken");
-  sessionStorage.removeItem("userRole");
-  sessionStorage.removeItem("userId");
-  sessionStorage.removeItem("user-storage"); // Clear user store
+  localStorage.removeItem("authToken");
+  localStorage.removeItem("userRole");
+  localStorage.removeItem("userId");
+  localStorage.removeItem("user-storage"); // Clear user store
 };
 
 export const isAuthenticated = (): boolean => {

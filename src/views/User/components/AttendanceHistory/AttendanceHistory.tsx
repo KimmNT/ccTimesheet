@@ -9,11 +9,13 @@ import Loading from "@/components/Loading/Loading";
 import Activity from "../Activity/Activity";
 import { convertMillisecondsToTimeString } from "@/utils/hooks/DateTimeHelper/convertMillisecondsToTimeString";
 import type { ClockInOut } from "@/lib/attendance/modal";
+import { useDocumentTitle } from "@/utils/hooks/useDocumentTitle";
 
 type ValuePiece = Date | null;
 type Value = ValuePiece | [ValuePiece, ValuePiece];
 
 export default function AttendanceHistory() {
+  useDocumentTitle("Attendance History");
   const user = useUserStore((state) => state.user);
   const [date, setDate] = useState<Value>(new Date());
 
