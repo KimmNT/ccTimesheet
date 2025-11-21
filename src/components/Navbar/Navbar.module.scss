@@ -28,16 +28,39 @@
       display: flex;
       align-items: center;
       gap: 0.25rem;
-      padding: 0.5rem;
+      padding: 0.5rem 1rem;
       border-radius: 0.25rem;
 
       @include utils.viewport(3) {
-        padding: 0.25rem;
+        padding: 0.5rem 1rem;
+      }
+
+      &::after {
+        content: "";
+        display: block;
+        height: 100%;
+        width: 0.125rem;
+        background-color: var(--color-border);
+        position: absolute;
+        right: 0;
+        top: 0;
       }
 
       &.ActiveNavLink {
-        background-color: var(--color-primary);
-        color: #fff;
+        &::before {
+          content: "";
+          position: absolute;
+          bottom: -0.25rem;
+          left: 50%;
+          transform: translateX(-50%);
+          width: 85%;
+          height: 0.15rem;
+          background-color: var(--color-primary);
+          border-radius: 0.125rem;
+          @include utils.viewport(3) {
+            width: 50%;
+          }
+        }
       }
 
       .NavIcon {

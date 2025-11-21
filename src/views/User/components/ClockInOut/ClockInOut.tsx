@@ -10,8 +10,10 @@ import { useUserStore } from "@/store/useUserStore";
 import type { ClockInOut } from "@/lib/attendance/modal";
 import { useGetSpecificAttendance } from "@/utils/hooks/Attendance/useGetSpecificAttendance";
 import Loading from "@/components/Loading/Loading";
+import { useDocumentTitle } from "@/utils/hooks/useDocumentTitle";
 
 export default function ClockInOut() {
+  useDocumentTitle("Clock In/Out");
   const user = useUserStore((state) => state.user);
   const { getSpecificAttendance } = useGetSpecificAttendance();
 

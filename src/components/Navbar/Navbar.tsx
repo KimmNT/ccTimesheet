@@ -10,7 +10,7 @@ import clsx from "clsx";
 
 // Map titles to icons
 const navIcons: Record<string, LucideIcon> = {
-  Staff: Users,
+  Staffs: Users,
   Attendance: ClipboardList,
   Reports: FileText,
   "Clock In/Out": Clock,
@@ -38,10 +38,9 @@ export default function Navbar() {
         {navbar.map((nav, index) => {
           const IconComponent = navIcons[nav.title];
           return (
-            <>
+            <div key={index}>
               <Link
                 to={nav.path}
-                key={index}
                 className={clsx(
                   style.NavLink,
                   currentPath === nav.path && style.ActiveNavLink
@@ -50,8 +49,7 @@ export default function Navbar() {
                 <IconComponent className={style.NavIcon} />
                 <span className={style.NavText}>{nav.title}</span>
               </Link>
-              <div className={style.LineBreaker}></div>
-            </>
+            </div>
           );
         })}
         <div className={style.UserSection}>

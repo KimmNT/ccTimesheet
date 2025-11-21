@@ -33,17 +33,17 @@ export const useUserStore = create<UserStore>()(
         }),
     }),
     {
-      name: "user-storage", // sessionStorage key
+      name: "user-storage", // localStorage key
       storage: {
         getItem: (name) => {
-          const str = sessionStorage.getItem(name);
+          const str = localStorage.getItem(name);
           return str ? JSON.parse(str) : null;
         },
         setItem: (name, value) => {
-          sessionStorage.setItem(name, JSON.stringify(value));
+          localStorage.setItem(name, JSON.stringify(value));
         },
         removeItem: (name) => {
-          sessionStorage.removeItem(name);
+          localStorage.removeItem(name);
         },
       },
     }
