@@ -4,7 +4,7 @@ import { Link, useNavigate } from "@tanstack/react-router";
 import { clearSession, getUserRole } from "@/utils/auth/sessionManager";
 import style from "./Navbar.module.scss";
 import { useUserStore } from "@/store/useUserStore";
-import { LogOut, Users, ClipboardList, FileText, Clock } from "lucide-react";
+import { LogOut, Users, ClipboardList, Clock, Download } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import clsx from "clsx";
 
@@ -12,7 +12,7 @@ import clsx from "clsx";
 const navIcons: Record<string, LucideIcon> = {
   Staffs: Users,
   Attendance: ClipboardList,
-  Reports: FileText,
+  Reports: Download,
   "Clock In/Out": Clock,
   "My Attendance": ClipboardList,
 };

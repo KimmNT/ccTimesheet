@@ -1,0 +1,307 @@
+@use "@/style/colors.scss";
+@use "@/style/utils.scss";
+
+.PageContainer {
+  width: 90%;
+  margin: 0 auto;
+  padding-bottom: 5rem;
+
+  .Content {
+    width: 100%;
+    padding: 2rem 0;
+
+    .Header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+
+      .Heading {
+        font-size: 2rem;
+        font-weight: 600;
+        color: var(--color-text);
+      }
+      .ActionButton {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        background-color: var(--color-primary);
+        padding: 0.5rem 1rem;
+        border-radius: 0.5rem;
+        cursor: pointer;
+
+        .ActionIcon {
+          width: 1.5rem;
+          height: 1.5rem;
+          color: var(--color-light);
+        }
+        .ActionHeading {
+          font-size: 1rem;
+          font-weight: 500;
+          color: var(--color-light);
+        }
+      }
+    }
+
+    .FilterContainer {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-top: 2rem;
+      position: relative;
+
+      .FilterGroupContainer {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        flex-wrap: wrap;
+
+        @include utils.viewport(3) {
+          gap: 0.5rem;
+        }
+
+        .DateNavigationButton {
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+          font-size: 1.25rem;
+          background-color: var(--color-card-bg);
+          padding: 0.5rem 1rem;
+          border-radius: 0.5rem;
+          border: 0.125rem solid var(--color-border);
+
+          @include utils.viewport(3) {
+            .Icon {
+              width: 1.25rem;
+              height: 1.25rem;
+            }
+            .Title {
+              display: none;
+            }
+          }
+        }
+
+        .DatePicker {
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+          background-color: var(--color-card-bg);
+          padding: 0.5rem 1rem;
+          border-radius: 0.5rem;
+          border: 0.125rem solid var(--color-border);
+
+          .DateValue {
+            font-size: 1.25rem;
+            color: var(--color-text);
+
+            @include utils.viewport(3) {
+              font-size: 1rem;
+            }
+          }
+
+          .DatePickerButton {
+            background: none;
+            border: none;
+            cursor: pointer;
+          }
+
+          .DatePickerIcon {
+            width: 1.5rem;
+            height: 1.5rem;
+            color: var(--color-text-secondary);
+          }
+        }
+      }
+
+      .CalendarContainer {
+        position: absolute;
+        top: 4rem;
+        z-index: 10;
+
+        .Calendar {
+          border-radius: 0.5rem;
+          padding: 1rem;
+          border: none;
+          box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+          width: 48%;
+
+          @include utils.viewport(3) {
+            width: 100%;
+          }
+
+          // Style selected date
+          :global(.react-calendar__tile--active) {
+            background-color: var(--color-primary) !important;
+            color: white !important;
+            border-radius: 2rem;
+            font-weight: 600;
+
+            &:hover {
+              background-color: #1976d2 !important;
+            }
+          }
+
+          // Style today's date
+          :global(.react-calendar__tile--now) {
+            background-color: #ffe082;
+            border-radius: 2rem;
+
+            &:hover {
+              background-color: #ffd54f;
+            }
+          }
+
+          // Ensure selected state overrides today state
+          :global(.react-calendar__tile--now.react-calendar__tile--active) {
+            background-color: #2196f3 !important;
+            color: white !important;
+          }
+
+          // Hover effect for tiles
+          :global(.react-calendar__tile:hover) {
+            background-color: #e3f2fd;
+            border-radius: 2rem;
+          }
+
+          // Style for dates with attendance (when hovered)
+          :global(.react-calendar__tile:enabled:hover) {
+            cursor: pointer;
+          }
+        }
+      }
+    }
+
+    .Error {
+      color: var(--color-error);
+      font-size: 1rem;
+    }
+
+    .NotFound {
+      font-size: 1.5rem;
+      color: var(--color-text-secondary);
+      margin-top: 3rem;
+      text-align: center;
+    }
+
+    .TableContainer {
+      overflow-x: auto;
+      border-radius: 0.5rem;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      border: 0.125rem solid var(--color-border);
+      margin-top: 3rem;
+    }
+
+    .Table {
+      width: 100%;
+      border-collapse: collapse;
+      background-color: var(--color-card-bg);
+      min-width: 800px;
+    }
+
+    .TableHeader {
+      background-color: var(--color-bg-alt);
+      text-align: left;
+      color: var(--color-text-secondary);
+      font-weight: 600;
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    .HeaderCell {
+      padding: 1rem;
+      font-size: 0.875rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      text-align: center;
+    }
+
+    .TableBody {
+      .Row {
+        border-bottom: 1px solid var(--color-border);
+
+        &:last-child {
+          border-bottom: none;
+        }
+
+        &:nth-child(even) {
+          background-color: var(--color-bg-alt);
+        }
+
+        &:hover {
+          background-color: #f0f4f8;
+        }
+      }
+    }
+
+    .Value {
+      padding: 1rem 1.5rem;
+      font-size: 0.95rem;
+      color: var(--color-text);
+      vertical-align: middle;
+      text-align: center;
+    }
+
+    .PasswordCell {
+      display: flex;
+      align-items: center;
+    }
+
+    .PasswordToggleButton {
+      margin-left: 1rem;
+      color: var(--color-text-secondary);
+    }
+
+    .PasswordToggleIcon {
+      width: 1.2rem;
+      height: 1.2rem;
+    }
+
+    .Status {
+      padding: 0.25rem 0.75rem;
+      border-radius: 12px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      text-transform: capitalize;
+
+      &.Active {
+        background-color: #e8f5e9;
+        color: #388e3c;
+      }
+
+      &.Inactive {
+        background-color: #ffebee;
+        color: #d32f2f;
+      }
+    }
+
+    .Button {
+      background: none;
+      border: none;
+      cursor: pointer;
+      margin-right: 0.75rem;
+      padding: 0.25rem;
+      border-radius: 4px;
+      transition: background-color 0.2s ease;
+
+      &:hover {
+        background-color: var(--color-border);
+      }
+
+      .EditIcon,
+      .DeleteIcon {
+        width: 1rem;
+        height: 1rem;
+      }
+
+      .EditIcon {
+        color: var(--color-text);
+      }
+
+      .DeleteIcon {
+        color: var(--color-error);
+      }
+    }
+  }
+}

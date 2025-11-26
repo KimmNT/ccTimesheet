@@ -6,7 +6,7 @@ import { Eye, EyeOff, Pen, Plus, Trash2, X } from "lucide-react";
 import clsx from "clsx";
 import Loading from "@/components/Loading/Loading";
 import { useRef, useState } from "react";
-import StaffModel from "./StaffModel";
+import StaffDialog from "./StaffDialog";
 import type { Staff } from "@/lib/staff/modal";
 
 const STATUS_OPTIONS = ["All", "Active", "Inactive"] as const;
@@ -94,7 +94,7 @@ export default function Staffs() {
       <main className={style.PageContainer}>
         <div className={style.Content}>
           <div className={style.Header}>
-            <h1 className={style.Heading}>Staffs management</h1>
+            <h1 className={style.Heading}>Staffs Management</h1>
             <button
               type="button"
               className={style.ActionButton}
@@ -255,7 +255,7 @@ export default function Staffs() {
           )}
         </div>
         {isStaffModelOpen && (
-          <StaffModel
+          <StaffDialog
             isCreate={isCreate}
             isEdit={isEdit}
             isDelete={isDelete}
