@@ -1,5 +1,5 @@
 import type { Staff } from "@/lib/staff/modal";
-import style from "./StaffModel.module.scss";
+import style from "./StaffDialog.module.scss";
 import { X } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import clsx from "clsx";
@@ -17,7 +17,7 @@ type Props = {
 
 const ROLE_OPTIONS = ["Admin", "User"] as const;
 
-export default function StaffModel(props: Props) {
+export default function StaffDialog(props: Props) {
   const { isCreate, isEdit, isDelete, onClose, selectedStaff } = props;
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -125,6 +125,7 @@ export default function StaffModel(props: Props) {
                   placeholder="Full name"
                 />
               </label>
+              <div className={style.BreakLine}></div>
               <label className={style.Label}>
                 User name:
                 <input
@@ -135,6 +136,7 @@ export default function StaffModel(props: Props) {
                   placeholder="User name"
                 />
               </label>
+              <div className={style.BreakLine}></div>
               <label className={style.Label}>
                 Password:
                 <input
@@ -144,6 +146,7 @@ export default function StaffModel(props: Props) {
                   onChange={(e) => setUserPassword(e.target.value)}
                 />
               </label>
+              <div className={style.BreakLine}></div>
               <div className={style.Label}>
                 Role:
                 <div className={style.List}>
@@ -163,6 +166,7 @@ export default function StaffModel(props: Props) {
                   ))}
                 </div>
               </div>
+              <div className={style.BreakLine}></div>
               <label className={style.Label}>
                 Contact:
                 <input
@@ -173,6 +177,7 @@ export default function StaffModel(props: Props) {
                   placeholder="Contact number"
                 />
               </label>
+              <div className={style.BreakLine}></div>
               <label className={style.Label}>
                 Bank Details:
                 <input
@@ -183,6 +188,7 @@ export default function StaffModel(props: Props) {
                   placeholder="Bank account number"
                 />
               </label>
+              <div className={style.BreakLine}></div>
               <label className={style.Label}>
                 Salary:
                 <input
@@ -193,6 +199,7 @@ export default function StaffModel(props: Props) {
                   placeholder="Salary amount"
                 />
               </label>
+              <div className={style.BreakLine}></div>
               <div className={style.Label}>
                 Status:
                 <div className={style.List}>
@@ -218,6 +225,7 @@ export default function StaffModel(props: Props) {
                   </button>
                 </div>
               </div>
+              <div className={style.BreakLine}></div>
             </>
           )}
           {isDelete && (

@@ -11,14 +11,27 @@
   display: flex;
   align-items: center;
   justify-content: center;
+
   .Content {
     background-color: var(--color-card-bg);
     width: 60%;
+    max-height: 95dvh;
     padding: 1.5rem;
     border-radius: 0.5rem;
+    overflow: auto;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+
+    // Firefox
+    scrollbar-width: none;
+
+    // IE, Edge
+    -ms-overflow-style: none;
 
     @include utils.viewport(3) {
-      width: 80%;
+      width: 95%;
     }
 
     .Header {
@@ -48,14 +61,26 @@
       margin-top: 1rem;
       display: flex;
       flex-direction: column;
-      gap: 0.5rem;
+      gap: 1rem;
 
-      .Label {
+      .LabelContainer {
         display: flex;
-        flex-direction: column;
-        gap: 0.25rem;
-        color: var(--color-text);
-        font-size: 0.875rem;
+        align-items: center;
+        width: 100%;
+        gap: 3rem;
+        flex-wrap: wrap;
+
+        @include utils.viewport(3) {
+          gap: 1rem;
+        }
+
+        .Label {
+          display: flex;
+          flex-direction: column;
+          gap: 0.5rem;
+          color: var(--color-text);
+          font-size: 1rem;
+        }
       }
 
       .Input {
@@ -88,14 +113,81 @@
           }
         }
       }
+
+      .TimeSelectContainer {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: 1.5rem;
+        .Input {
+          width: fit-content;
+          &.TimeSelect {
+            padding: 0.25rem;
+          }
+        }
+      }
+
+      .Calendar {
+        border-radius: 0.5rem;
+        padding: 1rem;
+        border: none;
+        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        width: 100%;
+
+        // Style selected date
+        :global(.react-calendar__tile--active) {
+          background-color: var(--color-primary) !important;
+          color: white !important;
+          border-radius: 2rem;
+          font-weight: 600;
+
+          &:hover {
+            background-color: #1976d2 !important;
+          }
+        }
+
+        // Style today's date
+        :global(.react-calendar__tile--now) {
+          background-color: #ffe082;
+          border-radius: 2rem;
+
+          &:hover {
+            background-color: #ffd54f;
+          }
+        }
+
+        // Ensure selected state overrides today state
+        :global(.react-calendar__tile--now.react-calendar__tile--active) {
+          background-color: #2196f3 !important;
+          color: white !important;
+        }
+
+        // Hover effect for tiles
+        :global(.react-calendar__tile:hover) {
+          background-color: #e3f2fd;
+          border-radius: 2rem;
+        }
+
+        // Style for dates with attendance (when hovered)
+        :global(.react-calendar__tile:enabled:hover) {
+          cursor: pointer;
+        }
+      }
+    }
+
+    .BreakLine {
+      width: 100%;
+      height: 0.125rem;
+      background-color: var(--color-bg);
+      margin: 0.25rem 0;
     }
 
     .Actions {
-      margin-top: 1.5rem;
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 0.5rem;
+      margin-top: 1rem;
 
       .CloseAction,
       .ConfirmAction {
@@ -120,6 +212,12 @@
       .ConfirmAction {
         background-color: var(--color-primary);
         color: var(--color-bg);
+
+        &.DisabledButton {
+          background-color: var(--color-border);
+          cursor: not-allowed;
+          color: var(--color-text-secondary);
+        }
       }
     }
   }

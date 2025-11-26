@@ -8,8 +8,11 @@ import { db } from "../../../firebase";
 import { saveSession, isAuthenticated } from "@/utils/auth/sessionManager";
 import { useNavigate } from "@tanstack/react-router";
 import { useUserStore } from "@/store/useUserStore";
+import { useDocumentTitle } from "@/utils/hooks/useDocumentTitle";
 
 export default function Login() {
+  useDocumentTitle("Login");
+
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
