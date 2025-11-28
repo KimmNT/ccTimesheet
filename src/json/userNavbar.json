@@ -6,5 +6,9 @@
   {
     "title": "My Attendance",
     "path": "/user/my-attendance"
+  },
+  {
+    "title": "Account",
+    "path": "/user/account"
   }
 ]

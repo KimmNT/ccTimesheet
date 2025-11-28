@@ -18,6 +18,7 @@ import { Route as AdminIndexRouteImport } from './routes/admin/index'
 import { Route as AboutUsIndexRouteImport } from './routes/about-us/index'
 import { Route as UserMyAttendanceIndexRouteImport } from './routes/user/my-attendance/index'
 import { Route as UserClockInOutIndexRouteImport } from './routes/user/clock-in-out/index'
+import { Route as UserAccountIndexRouteImport } from './routes/user/account/index'
 import { Route as AdminStaffsIndexRouteImport } from './routes/admin/staffs/index'
 import { Route as AdminReportsIndexRouteImport } from './routes/admin/reports/index'
 import { Route as AdminAttendanceIndexRouteImport } from './routes/admin/attendance/index'
@@ -73,6 +74,13 @@ const UserClockInOutIndexRoute = UserClockInOutIndexRouteImport.update({
 } as any).lazy(() =>
   import('./routes/user/clock-in-out/index.lazy').then((d) => d.Route),
 )
+const UserAccountIndexRoute = UserAccountIndexRouteImport.update({
+  id: '/account/',
+  path: '/account/',
+  getParentRoute: () => UserRoute,
+} as any).lazy(() =>
+  import('./routes/user/account/index.lazy').then((d) => d.Route),
+)
 const AdminStaffsIndexRoute = AdminStaffsIndexRouteImport.update({
   id: '/staffs/',
   path: '/staffs/',
@@ -106,6 +114,7 @@ export interface FileRoutesByFullPath {
   '/admin/attendance': typeof AdminAttendanceIndexRoute
   '/admin/reports': typeof AdminReportsIndexRoute
   '/admin/staffs': typeof AdminStaffsIndexRoute
+  '/user/account': typeof UserAccountIndexRoute
   '/user/clock-in-out': typeof UserClockInOutIndexRoute
   '/user/my-attendance': typeof UserMyAttendanceIndexRoute
 }
@@ -118,6 +127,7 @@ export interface FileRoutesByTo {
   '/admin/attendance': typeof AdminAttendanceIndexRoute
   '/admin/reports': typeof AdminReportsIndexRoute
   '/admin/staffs': typeof AdminStaffsIndexRoute
+  '/user/account': typeof UserAccountIndexRoute
   '/user/clock-in-out': typeof UserClockInOutIndexRoute
   '/user/my-attendance': typeof UserMyAttendanceIndexRoute
 }
@@ -133,6 +143,7 @@ export interface FileRoutesById {
   '/admin/attendance/': typeof AdminAttendanceIndexRoute
   '/admin/reports/': typeof AdminReportsIndexRoute
   '/admin/staffs/': typeof AdminStaffsIndexRoute
+  '/user/account/': typeof UserAccountIndexRoute
   '/user/clock-in-out/': typeof UserClockInOutIndexRoute
   '/user/my-attendance/': typeof UserMyAttendanceIndexRoute
 }
@@ -149,6 +160,7 @@ export interface FileRouteTypes {
     | '/admin/attendance'
     | '/admin/reports'
     | '/admin/staffs'
+    | '/user/account'
     | '/user/clock-in-out'
     | '/user/my-attendance'
   fileRoutesByTo: FileRoutesByTo
@@ -161,6 +173,7 @@ export interface FileRouteTypes {
     | '/admin/attendance'
     | '/admin/reports'
     | '/admin/staffs'
+    | '/user/account'
     | '/user/clock-in-out'
     | '/user/my-attendance'
   id:
@@ -175,6 +188,7 @@ export interface FileRouteTypes {
     | '/admin/attendance/'
     | '/admin/reports/'
     | '/admin/staffs/'
+    | '/user/account/'
     | '/user/clock-in-out/'
     | '/user/my-attendance/'
   fileRoutesById: FileRoutesById
@@ -252,6 +266,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof UserClockInOutIndexRouteImport
       parentRoute: typeof UserRoute
     }
+    '/user/account/': {
+      id: '/user/account/'
+      path: '/account'
+      fullPath: '/user/account'
+      preLoaderRoute: typeof UserAccountIndexRouteImport
+      parentRoute: typeof UserRoute
+    }
     '/admin/staffs/': {
       id: '/admin/staffs/'
       path: '/staffs'
@@ -294,12 +315,14 @@ const AdminRouteWithChildren = AdminRoute._addFileChildren(AdminRouteChildren)
 
 interface UserRouteChildren {
   UserIndexRoute: typeof UserIndexRoute
+  UserAccountIndexRoute: typeof UserAccountIndexRoute
   UserClockInOutIndexRoute: typeof UserClockInOutIndexRoute
   UserMyAttendanceIndexRoute: typeof UserMyAttendanceIndexRoute
 }
 
 const UserRouteChildren: UserRouteChildren = {
   UserIndexRoute: UserIndexRoute,
+  UserAccountIndexRoute: UserAccountIndexRoute,
   UserClockInOutIndexRoute: UserClockInOutIndexRoute,
   UserMyAttendanceIndexRoute: UserMyAttendanceIndexRoute,
 }
