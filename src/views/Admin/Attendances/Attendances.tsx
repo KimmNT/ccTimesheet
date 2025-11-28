@@ -171,9 +171,11 @@ export default function Attendances() {
                             )}
                           </td>
                           <td className={style.Value}>
-                            {convertToReadableFormatHoursAndMinutes(
-                              attendance.clockOutTime
-                            )}
+                            {attendance.clockOutTime === 0
+                              ? "Not yet"
+                              : convertToReadableFormatHoursAndMinutes(
+                                  attendance.clockOutTime
+                                )}
                           </td>
                           <td className={style.Value}>
                             {attendance.breakTime} m

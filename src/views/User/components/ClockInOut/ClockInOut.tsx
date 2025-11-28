@@ -22,10 +22,14 @@ export default function ClockInOut() {
   const [clockOutTime, setClockOutTime] = useState(0);
   const [breakTime, setBreakTime] = useState(0);
   const [totalHours, setTotalHours] = useState(0);
+
   const [attendanceId, setAttendanceId] = useState("");
+
   const [breakTimeDialog, setBreakTimeDialog] = useState(false);
   const [isBreakTimeSubmited, setIsBreakTimeSubmited] = useState(false);
+
   const [loading, setLoading] = useState(true);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleConvertToReadableFormat = (time: number) => {
     const convertedTime = new Date(time);
@@ -76,6 +80,7 @@ export default function ClockInOut() {
   }, [user?.userId, getCurrentFormattedDate, getSpecificAttendance]);
 
   const handleClockIn = async () => {
+    setIsSubmitting(true);
     const now = new Date();
     await addDoc(collection(db, "attendances"), {
       date: getCurrentFormattedDate(),
@@ -86,6 +91,7 @@ export default function ClockInOut() {
       totalHours,
       breakTime,
     });
+    setIsSubmitting(false);
     await getAttendanceStatus();
   };
 
@@ -153,13 +159,15 @@ export default function ClockInOut() {
                 <div className={style.ButtonContainer}>
                   <button
                     onClick={handleClockIn}
-                    disabled={clockInTime > 0}
+                    disabled={clockInTime > 0 || isSubmitting}
                     className={clsx(
                       style.Button,
-                      clockInTime > 0 && style.Disable
+                      (clockInTime > 0 || isSubmitting) && style.Disable
                     )}
                   >
-                    Clock In
+                    {isSubmitting && clockInTime === 0
+                      ? "Submitting..."
+                      : "Clock In"}
                   </button>
                   <button
                     onClick={handleClockOut}

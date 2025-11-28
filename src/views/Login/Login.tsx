@@ -27,7 +27,6 @@ export default function Login() {
   const setUser = useUserStore((state) => state.setUser);
 
   useEffect(() => {
-    // Redirect if already authenticated
     if (isAuthenticated()) {
       navigate({ to: "/" });
       return;

@@ -23,6 +23,7 @@ export default memo(function BreakTime({
 }: BreakTimeProps) {
   const [breakTimeValue, setBreakTimeValue] = useState("");
   const [error, setError] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const filterdBreakTimeList = breakTimeList.filter((option) => {
     const breakDuration =
@@ -37,6 +38,7 @@ export default memo(function BreakTime({
       setError("Please select or enter your break time.");
       return;
     }
+    setIsSubmitting(true);
     const totalMilliseconds = (clockOutTime ?? 0) - (clockInTime ?? 0);
     const totalMinutes =
       totalMilliseconds / (1000 * 60) - (parseInt(breakTimeValue) || 0);
@@ -49,6 +51,7 @@ export default memo(function BreakTime({
       breakTime: breakTimeValue ? parseInt(breakTimeValue) : 0,
     });
     isSubmited?.(true);
+    setIsSubmitting(false);
     void onClose?.();
   };
 
@@ -84,10 +87,11 @@ export default memo(function BreakTime({
         <div className={style.SubmitButtonContainer}>
           <button
             type="button"
-            className={style.SubmitButton}
+            className={clsx(style.SubmitButton, isSubmitting && style.Disable)}
+            disabled={isSubmitting}
             onClick={handleSelectedBreakTime}
           >
-            Submit
+            {isSubmitting ? "Submitting..." : "Submit"}
           </button>
         </div>
       </div>

@@ -93,6 +93,20 @@
         font-weight: 600;
         cursor: pointer;
         border: none;
+
+        &.Disable {
+          background-color: grey;
+          cursor: not-allowed;
+          pointer-events: none;
+          opacity: 0.6;
+        }
+
+        &:disabled {
+          background-color: grey;
+          cursor: not-allowed;
+          pointer-events: none;
+          opacity: 0.6;
+        }
       }
     }
   }

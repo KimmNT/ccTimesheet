@@ -1,0 +1,82 @@
+@use "@/style/colors.scss";
+@use "@/style/utils.scss";
+
+.PageContainer {
+  width: 90%;
+  margin: 0 auto;
+  height: 100vh;
+
+  .Content {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-top: 5rem;
+    gap: 1rem;
+
+    .Item {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+      background-color: #fff;
+      border-radius: 0.5rem;
+      box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+      padding: 1.5rem;
+      width: 45%;
+
+      @include utils.viewport(3) {
+        padding: 0.75rem;
+        width: 100%;
+      }
+      .ItemHeading {
+        font-size: 1.25rem;
+        font-weight: 600;
+      }
+
+      .ItemContent {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        .BreakLine {
+          height: 0.125rem;
+          background-color: var(--color-border);
+          width: 100%;
+          margin: 1rem 0;
+        }
+        .Info {
+          display: flex;
+          width: 100%;
+          align-items: center;
+          justify-content: space-between;
+          .Title {
+            font-size: 1rem;
+            color: var(--color-text-secondary);
+          }
+          .ValueContainer {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            .Value {
+              font-size: 1rem;
+              font-weight: 500;
+              color: var(--color-text);
+            }
+            .ValueContoller {
+              background-color: var(--color-border);
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              border-radius: 0.25rem;
+              padding: 0.25rem;
+              cursor: pointer;
+              .ValueIcon {
+                width: 1.25rem;
+                height: 1.25rem;
+                color: var(--color-text-secondary);
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
