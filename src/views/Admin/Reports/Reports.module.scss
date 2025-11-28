@@ -1,0 +1,310 @@
+@use "@/style/colors.scss";
+@use "@/style/utils.scss";
+
+.PageContainer {
+  width: 90%;
+  margin: 0 auto;
+  padding-bottom: 5rem;
+
+  .Content {
+    width: 100%;
+    padding: 2rem 0;
+
+    .Header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+
+      .Heading {
+        font-size: 2rem;
+        font-weight: 600;
+        color: var(--color-text);
+      }
+    }
+
+    .ReportContent {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      margin-top: 2rem;
+
+      @include utils.viewport(3) {
+        flex-direction: column;
+        gap: 2rem;
+      }
+
+      .BreakLine {
+        width: 100%;
+        height: 0.125rem;
+        background-color: var(--color-border);
+        margin: 1rem 0;
+      }
+
+      .Item {
+        background-color: #fff;
+        border-radius: 0.5rem;
+        box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        padding: 1.5rem;
+        height: fit-content;
+
+        @include utils.viewport(3) {
+          padding: 1rem;
+        }
+
+        &.SelectionContainer {
+          width: 30%;
+
+          @include utils.viewport(3) {
+            width: 100%;
+          }
+        }
+
+        &.Result {
+          width: 65%;
+          @include utils.viewport(3) {
+            width: 100%;
+          }
+        }
+
+        .ItemTitle {
+          font-size: 1.25rem;
+          font-weight: 600;
+        }
+
+        .ResultContent {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          width: 100%;
+
+          .ExportButton {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            background-color: var(--color-primary);
+            color: var(--color-light);
+            font-size: 1rem;
+            border: none;
+            border-radius: 0.25rem;
+            cursor: pointer;
+
+            .Icon {
+              width: 1.5rem;
+              height: 1.5rem;
+            }
+          }
+        }
+
+        .TotalSummary {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          width: 100%;
+
+          .SummaryItem {
+            width: 45%;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+
+            .SummaryItemTitle {
+              font-size: 1rem;
+              font-weight: 500;
+            }
+
+            .SummaryItemValue {
+              font-size: 1.75rem;
+              font-weight: 600;
+              margin-top: 0.5rem;
+            }
+          }
+        }
+
+        .SelectedDateRange {
+          margin-top: 0.25rem;
+          font-size: 0.875rem;
+          color: var(--color-text-secondary);
+        }
+
+        .Selection {
+          display: flex;
+          flex-direction: column;
+          gap: 1rem;
+          width: 100%;
+
+          .SelectBoxContainer {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            width: 100%;
+
+            .SelectTitle {
+              font-size: 1rem;
+              font-weight: 500;
+              color: var(--color-text);
+            }
+
+            select {
+              padding: 0.25rem 0.5rem;
+              border-radius: 0.25rem;
+              border: 1px solid var(--color-border);
+              background-color: var(--color-input-bg);
+              color: var(--color-text);
+              font-size: 1rem;
+              width: 100%;
+            }
+
+            .DateRangeWrapper {
+              display: flex;
+              align-items: center;
+              gap: 0.5rem;
+              flex-direction: column;
+              width: 100%;
+
+              @include utils.viewport(3) {
+                flex-direction: row;
+                gap: 2rem;
+              }
+
+              .DateInputGroup {
+                display: flex;
+                flex-direction: column;
+                gap: 0.5rem;
+                width: 100%;
+
+                .DateLabel {
+                  font-size: 0.875rem;
+                  font-weight: 500;
+                  color: var(--color-text);
+                }
+
+                .DatePickerContainer {
+                  display: flex;
+                  align-items: center;
+                  gap: 0.5rem;
+                  position: relative;
+                  width: 100%;
+
+                  input {
+                    padding: 0.25rem 0.5rem;
+                    border-radius: 0.25rem;
+                    border: 1px solid var(--color-border);
+                    background-color: var(--color-input-bg);
+                    color: var(--color-text);
+                    font-size: 1rem;
+                    width: 100%;
+                  }
+
+                  .CalendarDropdown {
+                    position: absolute;
+                    top: 2rem;
+                    left: 0;
+                    background-color: #fff;
+                    z-index: 10;
+                  }
+                }
+              }
+            }
+          }
+        }
+
+        .TableContainer {
+          border-radius: 0.5rem;
+          box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+          border: 0.125rem solid var(--color-border);
+          margin-top: 2rem;
+          width: 100%;
+        }
+
+        .Table {
+          width: 100%;
+          border-collapse: collapse;
+          background-color: var(--color-card-bg);
+        }
+
+        .TableHeader {
+          background-color: var(--color-bg-alt);
+          text-align: left;
+          color: var(--color-text-secondary);
+          font-weight: 600;
+          border-bottom: 1px solid var(--color-border);
+        }
+
+        .HeaderCell {
+          padding: 1rem;
+          font-size: 0.875rem;
+          text-transform: uppercase;
+          letter-spacing: 0.5px;
+          text-align: center;
+        }
+
+        .TableBody {
+          .Row {
+            border-bottom: 1px solid var(--color-border);
+
+            &:last-child {
+              border-bottom: none;
+            }
+
+            &:nth-child(even) {
+              background-color: var(--color-bg-alt);
+            }
+
+            &:hover {
+              background-color: #f0f4f8;
+            }
+          }
+        }
+
+        .Value {
+          padding: 1rem 1.5rem;
+          font-size: 0.875rem;
+          color: var(--color-text);
+          vertical-align: middle;
+          text-align: center;
+        }
+
+        .Error {
+          color: var(--color-error);
+          font-size: 1rem;
+          margin-bottom: 1rem;
+          text-align: center;
+        }
+
+        .GenerateButton {
+          padding: 0.5rem 1rem;
+          background-color: var(--color-primary);
+          color: var(--color-light);
+          font-size: 1rem;
+          border: none;
+          border-radius: 0.25rem;
+          cursor: pointer;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          gap: 1rem;
+          width: 100%;
+
+          @include utils.viewport(3) {
+            padding: 0.75rem;
+            width: fit-content;
+          }
+        }
+      }
+      .NoResults {
+        font-size: 1.5rem;
+        color: var(--color-text-secondary);
+        text-align: center;
+        margin-top: 2rem;
+        width: 65%;
+
+        @include utils.viewport(3) {
+          width: 100%;
+        }
+      }
+    }
+  }
+}

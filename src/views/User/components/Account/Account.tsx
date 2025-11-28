@@ -87,7 +87,7 @@ export default function Account() {
               <div className={style.Info}>
                 <div className={style.Title}>Salary</div>
                 <div className={style.Value}>
-                  {staff?.userSalary === "" ? "..." : staff?.userSalary}
+                  {staff?.userSalary === "" ? "..." : staff?.userSalary}¥
                 </div>
               </div>
             </div>

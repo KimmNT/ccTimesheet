@@ -67,11 +67,12 @@
           display: flex;
           align-items: center;
           gap: 0.5rem;
-          font-size: 1.25rem;
+          font-size: 1rem;
           background-color: var(--color-card-bg);
           padding: 0.5rem 1rem;
           border-radius: 0.5rem;
           border: 0.125rem solid var(--color-border);
+          cursor: pointer;
 
           @include utils.viewport(3) {
             .Icon {

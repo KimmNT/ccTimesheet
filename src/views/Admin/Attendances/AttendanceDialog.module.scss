@@ -14,7 +14,8 @@
 
   .Content {
     background-color: var(--color-card-bg);
-    width: 60%;
+    min-width: 40%;
+    max-width: 95%;
     max-height: 95dvh;
     padding: 1.5rem;
     border-radius: 0.5rem;
