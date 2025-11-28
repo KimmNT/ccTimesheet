@@ -58,6 +58,18 @@ export default function Attendances() {
     setShowCalendar(false);
   };
 
+  const handlePreviousDay = () => {
+    const date = new Date(selectedDate);
+    date.setDate(date.getDate() - 1);
+    handleDateChange(date);
+  };
+
+  const handleNextDay = () => {
+    const date = new Date(selectedDate);
+    date.setDate(date.getDate() + 1);
+    handleDateChange(date);
+  };
+
   const attendancesFiltered = attendanceRecords.filter((record) => {
     const result = record.date === selectedDate;
     return result;
@@ -109,7 +121,11 @@ export default function Attendances() {
           </div>
           <div className={style.FilterContainer}>
             <div className={style.FilterGroupContainer}>
-              <button type="button" className={style.DateNavigationButton}>
+              <button
+                type="button"
+                className={style.DateNavigationButton}
+                onClick={handlePreviousDay}
+              >
                 <ArrowLeft className={style.Icon} />
                 <div className={style.Title}>Previous Day</div>
               </button>
@@ -123,7 +139,11 @@ export default function Attendances() {
                   <CalendarDaysIcon className={style.DatePickerIcon} />
                 </button>
               </div>
-              <button type="button" className={style.DateNavigationButton}>
+              <button
+                type="button"
+                className={style.DateNavigationButton}
+                onClick={handleNextDay}
+              >
                 <div className={style.Title}>Next Day</div>
                 <ArrowRight className={style.Icon} />
               </button>

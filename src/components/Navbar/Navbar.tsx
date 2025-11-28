@@ -29,7 +29,7 @@ export default function Navbar() {
   const role = getUserRole();
   const navigate = useNavigate();
   const clearUser = useUserStore((state) => state.clearUser);
-  const user = useUserStore((state) => state.user);
+  // const user = useUserStore((state) => state.user);
   const currentPath = window.location.pathname;
 
   const navbar = role === "admin" ? adminNavbar : userNavbar;
@@ -54,16 +54,18 @@ export default function Navbar() {
                   currentPath === nav.path && style.ActiveNavLink
                 )}
               >
-                <IconComponent className={style.NavIcon} />
+                <div className={style.NavIconContainer}>
+                  <IconComponent className={style.NavIcon} />
+                </div>
                 <span className={style.NavText}>{nav.title}</span>
               </Link>
             </div>
           );
         })}
         <div className={style.UserSection}>
-          <div className={style.UserInfo}>
+          {/* <div className={style.UserInfo}>
             <p className={style.UserName}>{user?.userName}</p>
-          </div>
+          </div> */}
           <button
             type="button"
             onClick={handleLogout}
