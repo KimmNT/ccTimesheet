@@ -1,7 +1,7 @@
 import userNavbar from "@/json/userNavbar.json";
 import adminNavbar from "@/json/adminNavbar.json";
-import { Link, useNavigate } from "@tanstack/react-router";
-import { clearSession, getUserRole } from "@/utils/auth/sessionManager";
+import { Link } from "@tanstack/react-router";
+import { getUserRole } from "@/utils/auth/sessionManager";
 import style from "./Navbar.module.scss";
 import { useUserStore } from "@/store/useUserStore";
 import {
@@ -14,6 +14,8 @@ import {
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import clsx from "clsx";
+import LogOutDialog from "../LogOut/LogOutDialog";
+import { useState } from "react";
 
 // Map titles to icons
 const navIcons: Record<string, LucideIcon> = {
@@ -27,18 +29,12 @@ const navIcons: Record<string, LucideIcon> = {
 
 export default function Navbar() {
   const role = getUserRole();
-  const navigate = useNavigate();
-  const clearUser = useUserStore((state) => state.clearUser);
-  // const user = useUserStore((state) => state.user);
+  const user = useUserStore((state) => state.user);
   const currentPath = window.location.pathname;
 
-  const navbar = role === "admin" ? adminNavbar : userNavbar;
+  const [isLogoutOpen, setIsLogoutOpen] = useState(false);
 
-  const handleLogout = () => {
-    clearSession();
-    clearUser();
-    navigate({ to: "/login" });
-  };
+  const navbar = role === "admin" ? adminNavbar : userNavbar;
 
   return (
     <div className={style.NavbarContainer}>
@@ -46,7 +42,7 @@ export default function Navbar() {
         {navbar.map((nav, index) => {
           const IconComponent = navIcons[nav.title];
           return (
-            <div key={index}>
+            <div key={index} className={style.NavItem}>
               <Link
                 to={nav.path}
                 className={clsx(
@@ -59,22 +55,26 @@ export default function Navbar() {
                 </div>
                 <span className={style.NavText}>{nav.title}</span>
               </Link>
+              <div className={style.Divider} />
             </div>
           );
         })}
-        <div className={style.UserSection}>
-          {/* <div className={style.UserInfo}>
-            <p className={style.UserName}>{user?.userName}</p>
-          </div> */}
-          <button
-            type="button"
-            onClick={handleLogout}
-            className={style.LogoutButton}
-          >
-            <LogOut className={style.Icon} />
-          </button>
+        <div className={style.NavItem}>
+          <div className={style.NavLink} onClick={() => setIsLogoutOpen(true)}>
+            <span className={style.NavText}>{user?.userName}</span>
+            <div className={clsx(style.NavIconContainer, style.Logout)}>
+              <LogOut className={clsx(style.NavIcon, style.LogoutIcon)} />
+            </div>
+          </div>
         </div>
       </div>
+
+      {isLogoutOpen && (
+        <LogOutDialog
+          onClose={() => setIsLogoutOpen(false)}
+          userName={user?.userName || "User"}
+        />
+      )}
     </div>
   );
 }

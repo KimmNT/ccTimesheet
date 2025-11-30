@@ -13,110 +13,73 @@
     display: flex;
     align-items: center;
     background-color: white;
-    padding: 0.5rem 1rem;
+    padding: 0.5rem;
     border-radius: 3rem;
     box-shadow: 1px 1px 15px var(--color-primary);
 
-    .NavLink {
-      color: var(--color-text);
-      text-decoration: none;
-      font-weight: 600;
-      font-size: 1.1rem;
-      cursor: pointer;
-      position: relative;
-      transition: color 0.3s ease;
+    @include utils.viewport(3) {
+      padding: 0.25rem;
+    }
+
+    .NavItem {
       display: flex;
       align-items: center;
-      gap: 0.25rem;
-      padding: 0.5rem 1rem;
-      border-radius: 0.25rem;
 
-      @include utils.viewport(3) {
-        padding: 0.5rem 1rem;
-      }
-
-      &::after {
-        content: "";
-        display: block;
-        height: 100%;
-        width: 0.125rem;
-        background-color: var(--color-border);
-        position: absolute;
-        right: 0;
-        top: 0;
-      }
-
-      .NavIconContainer {
+      .NavLink {
+        color: var(--color-text);
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 1.1rem;
+        cursor: pointer;
+        position: relative;
         display: flex;
         align-items: center;
-        justify-content: center;
-        width: 2.5rem;
-        height: 2.5rem;
-        border-radius: 50%;
-        background-color: transparent;
-        .NavIcon {
-          width: 1.5rem;
-          height: 1.5rem;
-        }
-      }
+        padding: 0.5rem;
+        border-radius: 0.25rem;
+        gap: 0.25rem;
 
-      &.ActiveNavLink {
         .NavIconContainer {
-          background-color: var(--color-primary);
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: 2.5rem;
+          height: 2.5rem;
+          border-radius: 50%;
+          background-color: transparent;
+          &.Logout {
+            background-color: var(--color-error);
+          }
+
           .NavIcon {
-            color: var(--color-light);
+            width: 1.5rem;
+            height: 1.5rem;
+            &.LogoutIcon {
+              color: var(--color-light);
+            }
+          }
+        }
+
+        &.ActiveNavLink {
+          .NavIconContainer {
+            background-color: var(--color-primary);
+            .NavIcon {
+              color: var(--color-light);
+            }
+          }
+        }
+
+        .NavText {
+          @include utils.viewport(3) {
+            display: none;
           }
         }
       }
 
-      .NavText {
-        margin-left: 0.25rem;
-        @include utils.viewport(3) {
-          display: none;
-        }
-      }
-    }
-
-    .LineBreaker {
-      width: 0.125rem;
-      height: 2rem;
-      background-color: var(--color-border);
-      margin: 0 0.75rem;
-    }
-
-    .UserSection {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      margin-left: 0.5rem;
-      .UserInfo {
-        display: flex;
-        align-items: center;
-        gap: 0.25rem;
-        background-color: white;
-        padding: 0.25rem 0.5rem;
-        border-radius: 0.25rem;
-
-        .UserName {
-          font-size: 1.25rem;
-          color: var(--color-text);
-        }
-      }
-      .LogoutButton {
-        width: 2.5rem;
-        height: 2.5rem;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        border-radius: 50%;
-        background-color: var(--color-error);
-        cursor: pointer;
-
-        .Icon {
-          color: white;
-          width: 1.35rem;
-          height: 1.35rem;
-        }
+      .Divider {
+        width: 0.125rem;
+        height: 2rem;
+        background-color: var(--color-border);
+        margin: 0.5rem;
       }
     }
   }

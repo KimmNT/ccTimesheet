@@ -19,6 +19,7 @@ import { Route as AboutUsIndexRouteImport } from './routes/about-us/index'
 import { Route as UserMyAttendanceIndexRouteImport } from './routes/user/my-attendance/index'
 import { Route as UserClockInOutIndexRouteImport } from './routes/user/clock-in-out/index'
 import { Route as UserAccountIndexRouteImport } from './routes/user/account/index'
+import { Route as DevNoteVersionIndexRouteImport } from './routes/dev-note/version/index'
 import { Route as AdminStaffsIndexRouteImport } from './routes/admin/staffs/index'
 import { Route as AdminReportsIndexRouteImport } from './routes/admin/reports/index'
 import { Route as AdminAttendanceIndexRouteImport } from './routes/admin/attendance/index'
@@ -81,6 +82,13 @@ const UserAccountIndexRoute = UserAccountIndexRouteImport.update({
 } as any).lazy(() =>
   import('./routes/user/account/index.lazy').then((d) => d.Route),
 )
+const DevNoteVersionIndexRoute = DevNoteVersionIndexRouteImport.update({
+  id: '/dev-note/version/',
+  path: '/dev-note/version/',
+  getParentRoute: () => rootRouteImport,
+} as any).lazy(() =>
+  import('./routes/dev-note/version/index.lazy').then((d) => d.Route),
+)
 const AdminStaffsIndexRoute = AdminStaffsIndexRouteImport.update({
   id: '/staffs/',
   path: '/staffs/',
@@ -114,6 +122,7 @@ export interface FileRoutesByFullPath {
   '/admin/attendance': typeof AdminAttendanceIndexRoute
   '/admin/reports': typeof AdminReportsIndexRoute
   '/admin/staffs': typeof AdminStaffsIndexRoute
+  '/dev-note/version': typeof DevNoteVersionIndexRoute
   '/user/account': typeof UserAccountIndexRoute
   '/user/clock-in-out': typeof UserClockInOutIndexRoute
   '/user/my-attendance': typeof UserMyAttendanceIndexRoute
@@ -127,6 +136,7 @@ export interface FileRoutesByTo {
   '/admin/attendance': typeof AdminAttendanceIndexRoute
   '/admin/reports': typeof AdminReportsIndexRoute
   '/admin/staffs': typeof AdminStaffsIndexRoute
+  '/dev-note/version': typeof DevNoteVersionIndexRoute
   '/user/account': typeof UserAccountIndexRoute
   '/user/clock-in-out': typeof UserClockInOutIndexRoute
   '/user/my-attendance': typeof UserMyAttendanceIndexRoute
@@ -143,6 +153,7 @@ export interface FileRoutesById {
   '/admin/attendance/': typeof AdminAttendanceIndexRoute
   '/admin/reports/': typeof AdminReportsIndexRoute
   '/admin/staffs/': typeof AdminStaffsIndexRoute
+  '/dev-note/version/': typeof DevNoteVersionIndexRoute
   '/user/account/': typeof UserAccountIndexRoute
   '/user/clock-in-out/': typeof UserClockInOutIndexRoute
   '/user/my-attendance/': typeof UserMyAttendanceIndexRoute
@@ -160,6 +171,7 @@ export interface FileRouteTypes {
     | '/admin/attendance'
     | '/admin/reports'
     | '/admin/staffs'
+    | '/dev-note/version'
     | '/user/account'
     | '/user/clock-in-out'
     | '/user/my-attendance'
@@ -173,6 +185,7 @@ export interface FileRouteTypes {
     | '/admin/attendance'
     | '/admin/reports'
     | '/admin/staffs'
+    | '/dev-note/version'
     | '/user/account'
     | '/user/clock-in-out'
     | '/user/my-attendance'
@@ -188,6 +201,7 @@ export interface FileRouteTypes {
     | '/admin/attendance/'
     | '/admin/reports/'
     | '/admin/staffs/'
+    | '/dev-note/version/'
     | '/user/account/'
     | '/user/clock-in-out/'
     | '/user/my-attendance/'
@@ -199,6 +213,7 @@ export interface RootRouteChildren {
   UserRoute: typeof UserRouteWithChildren
   AboutUsIndexRoute: typeof AboutUsIndexRoute
   LoginIndexRoute: typeof LoginIndexRoute
+  DevNoteVersionIndexRoute: typeof DevNoteVersionIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -273,6 +288,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof UserAccountIndexRouteImport
       parentRoute: typeof UserRoute
     }
+    '/dev-note/version/': {
+      id: '/dev-note/version/'
+      path: '/dev-note/version'
+      fullPath: '/dev-note/version'
+      preLoaderRoute: typeof DevNoteVersionIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/admin/staffs/': {
       id: '/admin/staffs/'
       path: '/staffs'
@@ -335,6 +357,7 @@ const rootRouteChildren: RootRouteChildren = {
   UserRoute: UserRouteWithChildren,
   AboutUsIndexRoute: AboutUsIndexRoute,
   LoginIndexRoute: LoginIndexRoute,
+  DevNoteVersionIndexRoute: DevNoteVersionIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
