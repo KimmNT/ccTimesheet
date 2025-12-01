@@ -37,9 +37,9 @@ export default function Version() {
 
         <div className={style.VersionList}>
           {filteredVersions.length > 0 ? (
-            filteredVersions.map((item: VersionItem, index: number) => (
+            filteredVersions.map((item: VersionItem) => (
               <div
-                key={index}
+                key={item.version}
                 className={`${style.VersionCard} ${
                   item.status ? style.ActiveVersion : ""
                 }`}

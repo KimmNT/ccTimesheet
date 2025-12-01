@@ -60,12 +60,16 @@ export default function Navbar() {
           );
         })}
         <div className={style.NavItem}>
-          <div className={style.NavLink} onClick={() => setIsLogoutOpen(true)}>
+          <button
+            type="button"
+            className={style.NavLink}
+            onClick={() => setIsLogoutOpen(true)}
+          >
             <span className={style.NavText}>{user?.userName}</span>
             <div className={clsx(style.NavIconContainer, style.Logout)}>
               <LogOut className={clsx(style.NavIcon, style.LogoutIcon)} />
             </div>
-          </div>
+          </button>
         </div>
       </div>
 

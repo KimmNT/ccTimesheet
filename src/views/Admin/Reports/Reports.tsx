@@ -162,7 +162,7 @@ export default function Reports() {
       <main className={style.PageContainer}>
         <div className={style.Content}>
           <div className={style.Header}>
-            <h1 className={style.Heading}>Attendances Management</h1>
+            <h1 className={style.Heading}>Reports</h1>
           </div>
 
           <div className={style.ReportContent}>
