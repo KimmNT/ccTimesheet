@@ -1,0 +1,143 @@
+@use "@/style/colors.scss";
+@use "@/style/utils.scss";
+
+.Container {
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.Content {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.Title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--color-text);
+  margin: 0;
+}
+
+.SearchBox {
+  width: 100%;
+  max-width: 400px;
+}
+
+.SearchInput {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  font-size: 1rem;
+  border: 2px solid var(--color-border);
+  border-radius: 8px;
+  outline: none;
+  transition: border-color 0.3s ease;
+
+  &:focus {
+    border-color: var(--color-primary);
+  }
+
+  &::placeholder {
+    color: var(--color-text-secondary);
+  }
+}
+
+.VersionList {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.VersionCard {
+  background: var(--color-border);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  padding: 1.5rem;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+}
+
+.ActiveVersion {
+  background: var(--color-primary-light, rgba(59, 130, 246, 0.1));
+  border: 2px solid var(--color-primary);
+  box-shadow: 0 2px 8px rgba(59, 130, 246, 0.2);
+}
+
+.VersionHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.75rem;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.VersionNumber {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--color-primary);
+  margin: 0;
+}
+
+.VersionMeta {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.ActiveBadge {
+  background: var(--color-primary);
+  color: white;
+  padding: 0.25rem 0.75rem;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.VersionDate {
+  font-size: 0.9rem;
+  color: var(--color-text-secondary);
+  font-weight: 500;
+}
+
+.VersionChanges {
+  font-size: 1rem;
+  color: var(--color-text);
+  margin: 0;
+  line-height: 1.5;
+}
+
+.NoResults {
+  text-align: center;
+  color: var(--color-text-secondary);
+  font-size: 1rem;
+  padding: 2rem;
+  margin: 0;
+}
+
+@media (max-width: 768px) {
+  .Container {
+    padding: 1rem;
+  }
+
+  .Title {
+    font-size: 1.5rem;
+  }
+
+  .VersionCard {
+    padding: 1rem;
+  }
+
+  .VersionNumber {
+    font-size: 1.25rem;
+  }
+}

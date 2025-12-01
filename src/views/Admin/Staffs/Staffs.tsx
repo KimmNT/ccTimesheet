@@ -101,7 +101,7 @@ export default function Staffs() {
               onClick={() => openStaffModel(true, false, false, DEFAULT_STAFF)}
             >
               <Plus className={style.ActionIcon} />
-              <div className={style.ActionHeading}>Add Staff</div>
+              <div className={style.ActionHeading}>New Account</div>
             </button>
           </div>
           <div className={style.FilterContainer}>
