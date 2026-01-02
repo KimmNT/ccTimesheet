@@ -59,10 +59,24 @@ export default function Reports() {
   };
 
   const formatDateForComparison = (date: Date): string => {
+    // Use local date components to avoid timezone issues
     const year = date.getFullYear();
     const month = String(date.getMonth() + 1).padStart(2, "0");
     const day = String(date.getDate()).padStart(2, "0");
     return `${year}-${month}-${day}`;
+  };
+
+  const normalizeDateToMidnight = (date: Date): Date => {
+    // Create a new date at midnight local time to ensure consistent comparison
+    return new Date(
+      date.getFullYear(),
+      date.getMonth(),
+      date.getDate(),
+      0,
+      0,
+      0,
+      0
+    );
   };
 
   const filterAttendanceRecords = () => {
@@ -70,8 +84,14 @@ export default function Reports() {
       return [];
     }
 
-    const fromDateStr = formatDateForComparison(fromDate as Date);
-    const toDateStr = formatDateForComparison(toDate as Date);
+    // Normalize dates to midnight to avoid timezone issues
+    const normalizedFromDate = normalizeDateToMidnight(fromDate as Date);
+    const normalizedToDate = normalizeDateToMidnight(toDate as Date);
+
+    const fromDateStr = formatDateForComparison(normalizedFromDate);
+    const toDateStr = formatDateForComparison(normalizedToDate);
+
+    console.log("Date range:", fromDateStr, "to", toDateStr);
 
     const filtered = attendanceRecords.filter((record) => {
       const matchesStaff = record.userId === selectedStaff.id;
